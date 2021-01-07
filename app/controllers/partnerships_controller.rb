@@ -1,6 +1,12 @@
 class PartnershipsController < ApplicationController
     before_action :set_partnership, only: [:show, :update, :destroy]
 
+    def get_partnerships
+      @partnerships = @current_user.partnerships
+
+      render json: @partnerships, status: :ok
+    end
+
     def create
       @partnership = Partnership.new(partnership_params)
       if @partnership.save

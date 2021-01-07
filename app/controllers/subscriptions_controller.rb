@@ -1,6 +1,7 @@
 class SubscriptionsController < ApplicationController
     def create
-      @subscription = Subscription.new(subscription_params)
+      @subscription = Subscription.new(user_id: @current_user.id, 
+                                       partnership_id: subscription_params[:partnership_id])
       if @subscription.save
         render json: @subscription, status: :created
       else
@@ -9,6 +10,6 @@ class SubscriptionsController < ApplicationController
     end
 
     def subscription_params
-      params.permit(:user_id, :partnership_id)
+      params.permit(:partnership_id)
     end
 end
