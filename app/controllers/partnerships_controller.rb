@@ -2,8 +2,7 @@ class PartnershipsController < ApplicationController
     before_action :set_partnership, only: [:show, :update, :destroy]
 
     def get_partnerships
-      @partnerships = @current_user.partnerships
-
+      @partnerships = @current_user.partnerships.merge(Subscription.not_blocked).order(:id)
       render json: @partnerships, status: :ok
     end
 
